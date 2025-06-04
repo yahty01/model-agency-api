@@ -8,11 +8,11 @@ WORKDIR /app
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
 
-# ✅ 4. Копируем Prisma схему ДО генерации клиента
+# 4. Копируем Prisma схему ДО генерации клиента
 COPY prisma ./prisma
 RUN yarn prisma generate
 
-# ✅ 5. Копируем остальные исходники и компилируем
+# 5. Копируем остальные исходники и компилируем
 COPY . .
 RUN yarn build
 

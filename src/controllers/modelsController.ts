@@ -48,7 +48,13 @@ export const getInTownModels = async (req: Request, res: Response) => {
 
 // ✅ POST /models
 export const createModel = async (req: Request, res: Response) => {
-  const data = req.body;
-  const newModel = await prisma.model.create({ data });
-  res.status(201).json(newModel);
+  try {
+    const newModel = await prisma.model.create({
+      data: req.body,
+    });
+    res.status(201).json(newModel);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to create model' }); // ← вот это важно
+  }
 };
